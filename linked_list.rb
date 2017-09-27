@@ -12,13 +12,19 @@ class LinkedList
   end
 
   def size
-    # iterate through the nodes and count amount of iterations
+    current_node = @head
+    count = 1
+    while current_node.next_node
+      count += 1
+      current_node = current_node.next_node
+    end
+    count
   end
 
   def tail
     current_node = @head
     current_node = current_node.next_node while current_node.next_node
-    current_node
+    current_node.data
   end
 
   def head
@@ -46,10 +52,17 @@ class LinkedList
   def remove_at(index); end # extra credit
 
   class Node
-    attr_accessor :data, :node
+    attr_accessor :data, :next_node
     def initialize(data = nil)
       @data = data
       @next_node = nil
     end
   end
+end
+
+l = LinkedList.new('initial')
+test = ['test', 2, 44, 0, 'word', 3]
+
+test.each do |i|
+  l.preppend(i)
 end
