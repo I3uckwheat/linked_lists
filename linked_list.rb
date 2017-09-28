@@ -1,4 +1,8 @@
 class LinkedList
+  def initialize
+    @head = nil
+  end
+
   def append(data); end
 
   def prepend(data) # fix variable names
@@ -19,7 +23,7 @@ class LinkedList
 
   def tail
     current_node = @head
-    current_node = current_node.next_node while current_node.next_node
+    current_node = current_node.next_node until current_node.next_node.nil?
     current_node.data
   end
 
@@ -33,10 +37,27 @@ class LinkedList
       return nil if current_node.nil?
       current_node = current_node.next_node
     end
-    current_node
+    current_node.data
   end
 
-  def pop; end
+  def pop # fix
+    current_node = @head
+    next_node = current_node.next_node
+    previous_node = nil
+    while next_node
+      previous_node = current_node
+      current_node = next_node
+      next_node = next_node.next_node
+    end
+    if previous_node.nil?
+      data = current_node.data
+      current_node.data = nil
+      data
+    else
+      previous_node.next_node = nil
+      current_node.data
+    end
+  end
 
   def contains?(value)
     current_node = @head
@@ -46,7 +67,16 @@ class LinkedList
     end
   end
 
-  def find(data); end
+  def find(data)
+    current_node = @head
+    index = 0
+    while current_node
+      return index if current_node.data == data
+      current_node = current_node.next_node
+      index += 1
+    end
+    nil
+  end
 
   def to_s
     string = ''
