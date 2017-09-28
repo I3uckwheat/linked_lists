@@ -1,14 +1,10 @@
 class LinkedList
-  def initialize(data)
-    @head = Node.new(data)
-  end
-
   def append(data); end
 
-  def prepend(data)
-    n = Node.new(data)
-    n.node = @head
-    @head = n
+  def prepend(data) # fix variable names
+    node = Node.new(data)
+    node.next_node = @head
+    @head = node
   end
 
   def size
@@ -31,7 +27,14 @@ class LinkedList
     @head.data
   end
 
-  def at(index); end
+  def at(index)
+    current_node = @head
+    index.times do
+      return nil if current_node.nil?
+      current_node = current_node.next_node
+    end
+    current_node
+  end
 
   def pop; end
 
@@ -45,7 +48,15 @@ class LinkedList
 
   def find(data); end
 
-  def to_s; end
+  def to_s
+    string = ''
+    current_node = @head
+    while current_node
+      string += "( #{current_node.data} ) -> "
+      current_node = current_node.next_node
+    end
+    string + 'nil'
+  end
 
   def insert_at(index); end # extra credit
 
@@ -58,11 +69,4 @@ class LinkedList
       @next_node = nil
     end
   end
-end
-
-l = LinkedList.new('initial')
-test = ['test', 2, 44, 0, 'word', 3]
-
-test.each do |i|
-  l.preppend(i)
 end
