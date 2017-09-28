@@ -3,7 +3,16 @@ class LinkedList
     @head = nil
   end
 
-  def append(data); end
+  def append(data)
+    return @head = Node.new(data) if @head.data.nil?
+    current_node = @head
+    next_node = current_node.next_node
+    while next_node
+      current_node = next_node
+      next_node = current_node.next_node
+    end
+    current_node.next_node = Node.new(data)
+  end
 
   def prepend(data) # fix variable names
     node = Node.new(data)
@@ -40,7 +49,7 @@ class LinkedList
     current_node.data
   end
 
-  def pop # fix
+  def pop
     current_node = @head
     next_node = current_node.next_node
     previous_node = nil
